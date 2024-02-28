@@ -4,10 +4,10 @@ import cors from "cors";
 
 const app: express.Application = express();
 const port = 3000;
-/*
+
 const connectDB = require("./config/db");
 connectDB();
-*/
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
