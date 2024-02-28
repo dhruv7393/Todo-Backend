@@ -4,10 +4,10 @@ import cors from "cors";
 
 const app: express.Application = express();
 const port = 3000;
-
+/*
 const connectDB = require("./config/db");
 connectDB();
-
+*/
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -18,11 +18,12 @@ app.get("/", (req: express.Request, res: express.Response) => {
 
 app.listen(port, () => console.log("Server has been initaited"));
 
-
+/*
 app.use("/api/headers", require("./routes/todoHeadersRoute"));
 app.use("/api/todos", require("./routes/todoRoute"));
 app.use("/api/dailytask", require("./routes/dailyTaskRoute"));
 app.use("/api/call", require("./routes/callRoute"));
+*/
 
 /*
 
