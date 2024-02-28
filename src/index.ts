@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req: express.Request, res: express.Response) => {
-  res.send("Hello Shleeji ${process.env.MONGO_URI ? process.env.MONGO_URI : 'change'}");
+  res.send(`Hello Shleeji ${process.env.MONGO_URI ? process.env.MONGO_URI : 'change'}`);
 });
 
 app.listen(port, () => console.log("Server has been initaited"));
