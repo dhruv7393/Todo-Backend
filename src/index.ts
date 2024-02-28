@@ -1,10 +1,22 @@
 // src/index.ts
 import express from 'express';
+import cors from "cors";
 
 const app: express.Application = express();
 const port = 3000;
 
-app.use(express.text());
+app.use(cors());
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+app.get("/", (req: express.Request, res: express.Response) => {
+  res.send("Hello Shleeji");
+});
+
+app.listen(port, () => console.log("Server has been initaited"));
+
+/*
 
 app.listen(port, () => {
   console.log(`server is listening on ${port}`);
@@ -39,3 +51,5 @@ app.patch('/patch', (req: express.Request, res: express.Response) => {
 app.delete('/delete', (req: express.Request, res: express.Response) => {
   res.status(200).header("x-delete-header", "delete-header-value").send();
 });
+
+*/
