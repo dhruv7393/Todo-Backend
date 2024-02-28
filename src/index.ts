@@ -1,13 +1,14 @@
 // src/index.ts
 import express from 'express';
 import cors from "cors";
+import process from "process"
 
 const app: express.Application = express();
 const port = 3000;
-
+/*
 const connectDB = require("./config/db");
 connectDB();
-
+*/
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
