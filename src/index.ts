@@ -21,10 +21,13 @@ app.get("/", (req: express.Request, res: express.Response) => {
   res.send(`Hello Shleeji`);
 });
 
+app.use("/api/tests", require("./routes/testRoute.js"));
+
 app.listen(port, () => console.log("Server has been initaited"));
 
-app.use("/api/headers", require("./routes/todoHeadersRoute.js"));
+
 /*
+app.use("/api/headers", require("./routes/todoHeadersRoute.js"));
 app.use("/api/todos", require("./routes/todoRoute"));
 app.use("/api/dailytask", require("./routes/dailyTaskRoute"));
 app.use("/api/call", require("./routes/callRoute"));
