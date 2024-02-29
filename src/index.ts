@@ -7,18 +7,18 @@ dotenv.config();
 
 const app: express.Application = express();
 const port = 3000;
-const mongo: string = (process.env.MONGO_URI as string);
+const mongourl: string = (process.env.MONGO_URI as string);
 
-/*
+
 const connectDB = require("./config/db");
-connectDB();
-*/ 
+connectDB(mongourl);
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req: express.Request, res: express.Response) => {
-  res.send(`Hello Shleeji ${mongo}`);
+  res.send(`Hello Shleeji`);
 });
 
 app.listen(port, () => console.log("Server has been initaited"));
