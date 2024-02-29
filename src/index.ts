@@ -9,15 +9,16 @@ const app: express.Application = express();
 const port = 3000;
 const mongo: string = (process.env.MONGO_URI as string);
 
+/*
 const connectDB = require("./config/db");
 connectDB();
-
+*/ 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req: express.Request, res: express.Response) => {
-  res.send(`Hello Shleeji ${JSON.stringify(process.env)}`);
+  res.send(`Hello Shleeji ${mongo}`);
 });
 
 app.listen(port, () => console.log("Server has been initaited"));
