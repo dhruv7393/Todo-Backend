@@ -2,7 +2,7 @@
 import express from 'express';
 import cors from "cors";
 import process from "process"
-import dotenv from 'dotenv'; 
+import dotenv from 'dotenv';
 dotenv.config();
 
 const app: express.Application = express();
@@ -23,8 +23,8 @@ app.get("/", (req: express.Request, res: express.Response) => {
 
 app.listen(port, () => console.log("Server has been initaited"));
 
+app.use("/api/headers", require("./routes/todoHeadersRoute.js"));
 /*
-app.use("/api/headers", require("./routes/todoHeadersRoute"));
 app.use("/api/todos", require("./routes/todoRoute"));
 app.use("/api/dailytask", require("./routes/dailyTaskRoute"));
 app.use("/api/call", require("./routes/callRoute"));
