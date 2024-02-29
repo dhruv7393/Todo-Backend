@@ -15,3 +15,4 @@ cp -r ./src/commonComponents ./.amplify-hosting/compute/default
 cp -r ./src/config ./.amplify-hosting/compute/default
 cp -r ./src/controllers ./.amplify-hosting/compute/default
 cp -r ./src/models ./.amplify-hosting/compute/default
+cp -r ./src/routes ./.amplify-hosting/compute/default
