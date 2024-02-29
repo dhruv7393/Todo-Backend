@@ -10,7 +10,7 @@ const port = 3000;
 const mongourl: string = (process.env.MONGO_URI as string);
 
 
-const connectDB = require("./config/db");
+const connectDB = require("./config/db.js");
 connectDB(mongourl);
 
 app.use(cors());
