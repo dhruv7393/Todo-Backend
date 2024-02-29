@@ -2,9 +2,12 @@
 import express from 'express';
 import cors from "cors";
 import process from "process"
+import dotenv from 'dotenv'; 
+dotenv.config();
 
 const app: express.Application = express();
 const port = 3000;
+const mongo: string = (process.env.MONGO_URI as string);
 /*
 const connectDB = require("./config/db");
 connectDB();
@@ -14,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req: express.Request, res: express.Response) => {
-  res.send(`Hello Shleeji ${process.env.MONGO_URI ? process.env.MONGO_URI : 'change'}`);
+  res.send(`Hello Shleeji ${JSON.stringify(process.env)}`);
 });
 
 app.listen(port, () => console.log("Server has been initaited"));
