@@ -15,7 +15,11 @@ const DailyTaskSchema = new mongoose.Schema({
         required: [true, 'Please add the date of edit']
     },
     pending:{
-        type:String,
+        type:Number,
+        required: [true, 'Please add the pending count']
+    },
+    surplus:{
+        type:Number,
         required: [true, 'Please add the pending count']
     }
 });
