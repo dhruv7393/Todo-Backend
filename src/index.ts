@@ -26,5 +26,6 @@ app.use("/api/headers", require("./routes/todoHeadersRoute.js"));
 app.use("/api/todos", require("./routes/todoRoute"));
 app.use("/api/dailytask", require("./routes/dailyTaskRoute"));
 app.use("/api/call", require("./routes/callRoute"));
+app.use("/api/tasks", require("./routes/taskRoute"));
 
 app.listen(port, () => console.log("Server has been initaited"));
