@@ -41,10 +41,10 @@ const setPendingTask = async (req, res) => {
       )
 
 
-    let diff = (task.surplus > 0 && task.pending) ? (task.surplus > task.pending ? task.pending : task.surplus) : 0
+    let diff = task.pending - task.surplus
 
-    task.surplus -= diff
-    task.pending -= diff
+    task.surplus = diff <= 0 ? Math.abs(diff) : 0
+    task.pending = diff >= 0 ? Math.abs(diff) : 0
     
     task.edited = today;
 
