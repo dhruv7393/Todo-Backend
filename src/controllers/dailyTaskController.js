@@ -34,17 +34,11 @@ const setPendingTask = async (req, res) => {
   const today = new Date().toLocaleDateString();
 
   dailyTaskList.forEach(async (task) => {
-    task.pending += 
-      Math.ceil(
-        (new Date(new Date().toLocaleDateString()) - new Date(task.edited)) /
-          (1000 * 60 * 60 * 24)
-      )
-
-
-    let diff = task.pending - task.surplus
-
-    task.surplus = diff <= 0 ? Math.abs(diff) : 0
-    task.pending = diff >= 0 ? Math.abs(diff) : 0
+    
+    task.pending -= Math.ceil(
+      (new Date(new Date().toLocaleDateString()) - new Date(task.edited)) /
+        (1000 * 60 * 60 * 24)
+    )
     
     task.edited = today;
 
