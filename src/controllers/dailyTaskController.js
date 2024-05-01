@@ -32,17 +32,16 @@ const updateDailyTask = async (req, res) => {
 const setPendingTask = async (req, res) => {
   const dailyTaskList = await dailyTaskModel.find();
   const today = new Date().toLocaleDateString();
+  const dayOftheWeek = new Date().getDay()
 
   dailyTaskList.forEach(async (task) => {
     
-    task.pending -= Math.ceil(
-      (new Date(new Date().toLocaleDateString()) - new Date(task.edited)) /
-        (1000 * 60 * 60 * 24)
-    )
-    
-    task.edited = today;
+    if(task.edited !== today && dayOftheWeek==5){
+      task.pending = task.pending -7
+      task.edited = today;
+    }
 
-    if (!task.pending) {
+    if (task.pending >= 0) {
       task.done = true;
     }
     const result = await dailyTaskModel.findByIdAndUpdate(task._id, task);
