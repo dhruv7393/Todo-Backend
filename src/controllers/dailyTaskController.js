@@ -41,13 +41,15 @@ const setPendingTask = async (req, res) => {
         task.pending = task.pending -5
       }else if(task.title==="Exercise"){
         task.pending = task.pending -3
+      }else if(task.title==="Vision"){
+        task.pending = task.pending +1
       }else{
         task.pending = task.pending -7
       }
       task.edited = today;
     }
 
-    if (task.pending >= 0) {
+    if (task.pending >= 0 || task.title==="Vision") {
       task.done = true;
     }
     const result = await dailyTaskModel.findByIdAndUpdate(task._id, task);
