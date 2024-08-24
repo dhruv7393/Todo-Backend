@@ -38,13 +38,13 @@ const setPendingTask = async (req, res) => {
     
     if(task.edited !== today && dayOftheWeek==5){
       if(task.title==="Study New Concept"|| task.title==="Understing Finance"){
-        task.pending = task.pending -5
+        task.pending = task.pending -6
       }else if(task.title==="Exercise"){
-        task.pending = task.pending -3
+        task.pending = task.pending -4
       }else if(task.title==="Vision"){
         task.pending = task.pending +1
       }else{
-        task.pending = task.pending -7
+        task.pending = task.pending -8
       }
       task.edited = today;
     }
