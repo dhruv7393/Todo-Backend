@@ -37,20 +37,12 @@ const setPendingTask = async (req, res) => {
   dailyTaskList.forEach(async (task) => {
     
     if(task.edited !== today && dayOftheWeek==5){
-      if(task.title==="Study New Concept"|| task.title==="Understing Finance"){
-        task.pending = task.pending -6
-      }else if(task.title==="Exercise"){
-        task.pending = task.pending -4
-      }else if(task.title==="Vision"){
-        task.pending = task.pending +1
+      if(task.title==="Study New Concept"|| task.title==="Understing Finance" || task.title==="Exercise"){
+        task.pending = task.pending -5
       }else{
-        task.pending = task.pending -8
+        task.pending = task.pending -7
       }
       task.edited = today;
-    }
-
-    if (task.pending >= 0 || task.title==="Vision") {
-      task.done = true;
     }
     const result = await dailyTaskModel.findByIdAndUpdate(task._id, task);
   });
