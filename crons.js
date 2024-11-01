@@ -16,7 +16,7 @@ const countAndUpdate = cron.schedule('0 * * * *', () => {
           "sec-fetch-mode": "cors",
           "sec-fetch-site": "cross-site",
           "Referer": "https://main.d1mncb3ffwt3qn.amplifyapp.com/",
-          "Referrer-Policy": "strict-origin-when-cross-origin"
+          "Referrer-Policy": "no-referrer"
         },
         "body": "{\"title\":\"test\",\"notes\":[\"test\"],\"imp\":1,\"done\":false,\"pinned\":false}",
         "method": "POST"
