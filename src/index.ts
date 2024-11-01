@@ -4,12 +4,42 @@ import cors from "cors";
 import process from "process"
 import dotenv from 'dotenv';
 import { CronJob } from 'cron';
+import axios from 'axios';
 dotenv.config();
 
 const job = new CronJob(
 	'0 * * * * *', // cronTime
 	function () {
 		console.log('You will see this message every second');
+
+    var axios = require('axios');
+    var data = JSON.stringify({
+      "title": "Test",
+      "notes": [
+        "Test"
+      ],
+      "imp": 1,
+      "done": false,
+      "pinned": false
+    });
+
+    var config = {
+      method: 'post',
+      url: 'https://main.d3blcxzr0t6m0f.amplifyapp.com/api/tasks',
+      headers: {
+        'content-type': 'application/json',
+      },
+      data : data
+    };
+
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
 	}, // onTick
 	null, // onComplete
 	true, // start
