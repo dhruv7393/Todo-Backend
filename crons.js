@@ -6,6 +6,8 @@ const countAndUpdate = cron.schedule('* * * * *', () => {
   
 });
 
-const startOfCron = () => countAndUpdate.start()
+const startOfCron = () => {}
+  
+  //countAndUpdate.start()
 
 module.exports = {startOfCron}
