@@ -13,7 +13,7 @@ const mongourl: string = (process.env.MONGO_URI as string);
 const connectDB = require("./config/db.js");
 connectDB(mongourl);
 
-cronjobs.startOfCron()
+// cronjobs.startOfCron()
 
 app.use(cors());
 app.use(express.json());
