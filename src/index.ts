@@ -3,7 +3,7 @@ import express from 'express';
 import cors from "cors";
 import process from "process"
 import dotenv from 'dotenv';
-//const cronjobs = require('../crons.js')
+const cronjobs = require('../crons.js')
 dotenv.config();
 
 const app: express.Application = express();
@@ -13,7 +13,7 @@ const mongourl: string = (process.env.MONGO_URI as string);
 const connectDB = require("./config/db.js");
 connectDB(mongourl);
 
-//cronjobs.startOfCron()
+cronjobs.startOfCron()
 
 app.use(cors());
 app.use(express.json());
