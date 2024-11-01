@@ -33,10 +33,10 @@ const job = new CronJob(
     };
 
     axios(config)
-    .then(function (response) {
+    .then(function (response: { data: any; }) {
       console.log(JSON.stringify(response.data));
     })
-    .catch(function (error) {
+    .catch(function (error: any) {
       console.log(error);
     });
 
