@@ -2,7 +2,7 @@ const cron= require('node-cron');
 
 const countAndUpdate = cron.schedule('* * * * *', () => {
   console.log('running a task every hour');
-  fetch("https://main.d3blcxzr0t6m0f.amplifyapp.com/api/tasks", {
+  fetch("/api/tasks", {
     "headers": {
       "content-type": "application/json",
       'Access-Control-Allow-Origin' : '*'
