@@ -8,7 +8,7 @@ import axios from 'axios';
 dotenv.config();
 
 const job = new CronJob(
-	'* * 0-23 * * *', // cronTime
+	'0 0 0-23 * * *', // cronTime
 	function () {
 		console.log('You will see this message every hour');
 
