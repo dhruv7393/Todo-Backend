@@ -12,7 +12,8 @@ const updateLog = async (req, res, model, defaultValue) => {
         ...defaultValue,
         ...req.body,
       });
-      res.status(200).json(result);
+      const newResult = await model.findById(id)
+      res.status(200).json(newResult);
     } else {
       res
         .status(400)
