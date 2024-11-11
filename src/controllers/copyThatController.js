@@ -54,7 +54,7 @@ const updateAllCopyThatEveryDay = async (req, res) => {
         if(canBeCounted){
             if(today !== updatedOn && daysOfWeek.some(dayname => repeatOn.includes(dayname))){
                 task.updatedOn = today
-                task.count = count+1
+                task.count = count-1
             }
         }
         if(canBeRepeated){
