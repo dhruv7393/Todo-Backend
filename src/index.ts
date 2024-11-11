@@ -8,38 +8,21 @@ import axios from 'axios';
 dotenv.config();
 
 const job = new CronJob(
-	'0 0 0-23 * * *', // cronTime
+	'0 0 0 1-31 * *', // cronTime
 	function () {
-		console.log('You will see this message every hour');
-
-    var axios = require('axios');
-    var data = JSON.stringify({
-      "title": "Test",
-      "notes": [
-        "Test"
-      ],
-      "imp": 1,
-      "done": false,
-      "pinned": false
-    });
-
-    var config = {
-      method: 'post',
-      url: 'https://main.d3blcxzr0t6m0f.amplifyapp.com/api/tasks',
-      headers: {
-        'content-type': 'application/json',
-      },
-      data : data
+    let config = {
+      method: 'patch',
+      url: 'https://development.d1mncb3ffwt3qn.amplifyapp.com/api/copythat',
+      headers: { }
     };
-
+    
     axios(config)
-    .then(function (response: { data: any; }) {
+    .then(function (response) {
       console.log(JSON.stringify(response.data));
     })
-    .catch(function (error: any) {
+    .catch(function (error) {
       console.log(error);
     });
-
 	}, // onTick
 	null, // onComplete
 	true, // start
