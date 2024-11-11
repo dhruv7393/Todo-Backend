@@ -8,7 +8,7 @@ import axios from 'axios';
 dotenv.config();
 
 const job = new CronJob(
-	'0 0 0 1-31 * *', // cronTime
+	'0 30 9 * * *', // cronTime
 	function () {
     let config = {
       method: 'patch',
