@@ -52,7 +52,7 @@ const updateAllCopyThatEveryDay = async (req, res) => {
     !onVaccation && copyThatList.forEach(async (task) => {
         const {canBeCounted=false, count=0,repeatOn=[], canBeRepeated=false, repeatAfter=1, updatedOn=today} = task
         if(canBeCounted){
-            if(today !== updatedOn && daysOfWeek.some(dayname => repeatOn.includes(dayname))){
+            if(today !== updatedOn && repeatOn.includes(day)){
                 task.updatedOn = today
                 task.count = count-1
             }
