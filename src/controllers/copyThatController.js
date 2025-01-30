@@ -16,6 +16,7 @@ const postCopyThat = async (req, res) => {
     taskDetail: "",
     importance: 1,
     updatedOn: new Date().toLocaleDateString(),
+    setForLater: false,
   };
   checkAndPostMissingField(req, res, ["taskName"]);
   addLog(req, res, copyThatModel, defaultValue);
@@ -26,6 +27,7 @@ const patchCopyThat = async (req, res) => {
     taskDetail: "",
     importance: 1,
     updatedOn: new Date().toLocaleDateString(),
+    setForLater: false,
   };
   updateLog(req, res, copyThatModel, defaultValue);
 };
@@ -70,11 +72,13 @@ const updateAllCopyThatEveryDay = async (req, res) => {
         canBeRepeated = false,
         repeatAfter = 1,
         updatedOn = today,
+        setForLater = false,
       } = task;
       if (canBeCounted) {
         if (today !== updatedOn && repeatOn.includes(day)) {
           task.updatedOn = today;
           task.count = count - 1;
+          task.setForLater = false;
         }
       }
       if (canBeRepeated) {
@@ -85,6 +89,7 @@ const updateAllCopyThatEveryDay = async (req, res) => {
           task.updatedOn = today;
           task.done = false;
           task.pinned = true;
+          task.setForLater = false;
         }
       }
       const result = await copyThatModel.findByIdAndUpdate(task._id, task);
@@ -129,6 +134,7 @@ const restart = async (req, res) => {
       task.done = false;
       task.pinned = false;
     }
+    task.setForLater = false;
     const result = await copyThatModel.findByIdAndUpdate(task._id, task);
   });
 
