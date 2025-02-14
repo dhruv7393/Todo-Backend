@@ -108,8 +108,13 @@ const restart = async (req, res) => {
     "Friday",
     "Saturday",
   ];
-  const today = new Date().toLocaleDateString();
-  const day = daysOfWeek[new Date().getDay()];
+
+  const startDate =
+    Object.keys(req.body).includes("startdate") && req.body.startdate
+      ? req.body.startdate
+      : new Date().toLocaleDateString();
+  const today = new Date(Date.parse(startDate)).toLocaleDateString();
+  const day = daysOfWeek[new Date(Date.parse(startDate)).getDay()];
   const copyThatList = await copyThatModel.find();
 
   const vaccationDetails = await VaccationModel.find();
@@ -126,15 +131,14 @@ const restart = async (req, res) => {
   copyThatList.forEach(async (task) => {
     const { canBeCounted = false, repeatOn = [], canBeRepeated = false } = task;
     if (canBeCounted) {
-      task.updatedOn = today;
-      task.count = repeatOn.includes(day) ? -1 : 0;
+      task.count =
+        req.params.startdate === new Date().toLocaleDateString() ? -1 : 0;
     }
     if (canBeRepeated) {
-      task.updatedOn = today;
       task.done = false;
       task.pinned = false;
     }
-    task.setForLater = false;
+    task.updatedOn = today;
     const result = await copyThatModel.findByIdAndUpdate(task._id, task);
   });
 
