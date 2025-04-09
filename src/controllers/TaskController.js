@@ -59,12 +59,7 @@ const postDailyUpdate = async (req, res) => {
 };
 
 const patchTask = async (req, res) => {
-  let defaultValue = {
-    imp: 1,
-    noDelete: false,
-    repeatOn: new Date().toLocaleDateString(),
-    reset: false,
-  };
+  let defaultValue = {};
   updateLog(req, res, TasksModel, defaultValue);
 };
 
