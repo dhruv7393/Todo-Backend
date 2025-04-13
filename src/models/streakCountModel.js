@@ -22,6 +22,14 @@ const StreakCountSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please add a started from"],
   },
+  weekDays: {
+    type: String,
+    required: [true, "Please add a started from"],
+  },
+  sincerity: {
+    type: Object,
+    required: [true, "Please add a started from"],
+  },
 });
 
 module.exports = mongoose.model(

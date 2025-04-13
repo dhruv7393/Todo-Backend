@@ -14,6 +14,7 @@ const updateStreakCount = async (req, res) => {
   const { updatedOn } = defaultValue;
 
   const today = new Date().toLocaleDateString();
+  const dayOfWeek = new Date().getDay();
 
   defaultValue["activeDays"] =
     !defaultValue.onVaccation && updatedOn !== today
@@ -24,6 +25,14 @@ const updateStreakCount = async (req, res) => {
     updatedOn !== today
       ? (parseInt(defaultValue.totalDays) + 1).toString()
       : defaultValue["totalDays"];
+
+  defaultValue["weekDays"] =
+    !defaultValue.onVaccation &&
+    updatedOn !== today &&
+    0 < dayOfWeek &&
+    dayOfWeek < 6
+      ? (parseInt(defaultValue.weekDays) + 1).toString()
+      : defaultValue.weekDays;
 
   defaultValue["updatedOn"] = new Date().toLocaleDateString();
 
