@@ -39,6 +39,28 @@ const postDailyUpdate = async (req, res) => {
   let defaultStreakCountValue = streakCountDetails[0]["_doc"];
   let { onVaccation } = defaultStreakCountValue.onVaccation;
 
+  const taskDetailsNitya = await TasksModel.findById(
+    "67f58c5d0b3ae40bdb5b3438"
+  );
+  const taskDetailsWeekly = await TasksModel.findById(
+    "67f58d060b3ae40bdb5b343e"
+  );
+
+  taskDetailsWeekly["repeatOn"].includes(days[new Date().getDay()]) &&
+    taskDetailsWeekly["checked"].forEach((task) => {
+      defaultStreakCountValue["sincerity"][task] += 1;
+    });
+
+  taskDetailsNitya["repeatOn"].includes(days[new Date().getDay()]) &&
+    taskDetailsNitya["checked"].forEach((task) => {
+      defaultStreakCountValue["sincerity"][task] += 1;
+    });
+
+  const resultStreak = await StreakCountModel.findByIdAndUpdate(
+    defaultStreakCountValue._id,
+    defaultStreakCountValue
+  );
+
   const taskDetails = await TasksModel.find();
 
   taskDetails.forEach(async (task) => {
