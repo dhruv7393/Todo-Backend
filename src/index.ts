@@ -1,13 +1,13 @@
 // src/index.ts
-import express from 'express';
+import express from "express";
 import cors from "cors";
-import process from "process"
-import dotenv from 'dotenv';
+import process from "process";
+import dotenv from "dotenv";
 dotenv.config();
 
 const app: express.Application = express();
 const port = 3000;
-const mongourl: string = (process.env.MONGO_URI as string);
+const mongourl: string = process.env.MONGO_URI as string;
 
 const connectDB = require("./config/db.js");
 connectDB(mongourl);
@@ -19,9 +19,6 @@ app.use(express.urlencoded({ extended: false }));
 app.get("/", (req: express.Request, res: express.Response) => {
   res.send(`Hello Shleeji`);
 });
-
-app.use("/api/vaccation", require("./routes/vaccationRoute.js"));
-app.use("/api/copythat", require("./routes/copyThatRoute.js"));
 
 app.use("/api/streakcount", require("./routes/streakCountRoute.js"));
 app.use("/api/tasks", require("./routes/taskRoute.js"));
