@@ -29,7 +29,6 @@ const getInitialStreakData = async (req, res) => {
   if (!onVaccation && updatedOn !== today) {
     streak.updatedOn = today;
     streak.activeDays += 1;
-    streak.totalDays += 1;
     if (dayOfWeek !== "Sunday" || dayOfWeek !== "Saturday") {
       streak.weekDays += 1;
     }

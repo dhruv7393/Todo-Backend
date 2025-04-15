@@ -18,10 +18,6 @@ const StreakCountSchema = new mongoose.Schema({
     type: Number,
     required: [true, "Please add a started from"],
   },
-  totalDays: {
-    type: Number,
-    required: [true, "Please add a started from"],
-  },
   weekDays: {
     type: Number,
     required: [true, "Please add a started from"],
