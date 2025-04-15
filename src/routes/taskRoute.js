@@ -2,7 +2,6 @@ const express = require("express");
 const {
   getTasks,
   postTasks,
-  postDailyUpdate,
   deleteTask,
   patchTask,
 } = require("../controllers/TaskController");
@@ -14,10 +13,6 @@ router.get("/", (req, res) => {
 
 router.post("/", (req, res) => {
   postTasks(req, res);
-});
-
-router.post("/postdailyupdate", (req, res) => {
-  postDailyUpdate(req, res);
 });
 
 router.patch("/:id", (req, res) => [patchTask(req, res)]);

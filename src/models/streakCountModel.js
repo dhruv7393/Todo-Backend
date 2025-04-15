@@ -15,15 +15,15 @@ const StreakCountSchema = new mongoose.Schema({
     required: [true, "Please add number of vaccation days"],
   },
   activeDays: {
-    type: String,
+    type: Number,
     required: [true, "Please add a started from"],
   },
   totalDays: {
-    type: String,
+    type: Number,
     required: [true, "Please add a started from"],
   },
   weekDays: {
-    type: String,
+    type: Number,
     required: [true, "Please add a started from"],
   },
   sincerity: {

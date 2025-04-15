@@ -1,9 +1,9 @@
 const express = require("express");
+const { runChron } = require("../controllers/chronContoller");
 const router = express.Router();
-const { getStreakCount } = require("../controllers/streakCountController");
 
 router.get("/", (req, res) => {
-  getStreakCount(req, res);
+  runChron(req, res);
 });
 
 module.exports = router;

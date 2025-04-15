@@ -22,6 +22,7 @@ app.get("/", (req: express.Request, res: express.Response) => {
 
 app.use("/api/streakcount", require("./routes/streakCountRoute.js"));
 app.use("/api/tasks", require("./routes/taskRoute.js"));
+app.use("/api/chron", require("./routes/chron.js"));
 
 app.listen(port, () => {
   console.log("Server has been initaited at:", port);
