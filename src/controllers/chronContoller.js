@@ -13,7 +13,7 @@ const days = [
   "Tuesday",
   "Wednesday",
   "Thursday",
-  "Fiday",
+  "Friday",
   "Saturday",
 ];
 
@@ -57,7 +57,10 @@ const getInitialStreakData = async (req, res) => {
     });
   }
 
-  return streak;
+  const resultStreak = await StreakCountModel.findByIdAndUpdate(
+    streak._id,
+    streak
+  );
 };
 
 const resetTaskForToday = async (req, res) => {
@@ -79,11 +82,7 @@ const resetTaskForToday = async (req, res) => {
 
 const runChron = async (req, res) => {
   // get and update streak count values
-  const updatedStreakValue = await getInitialStreakData(req, res);
-  const resultStreak = await StreakCountModel.findByIdAndUpdate(
-    updatedStreakValue._id,
-    updatedStreakValue
-  );
+  await getInitialStreakData(req, res);
   await resetTaskForToday(req, res);
   sendCompleteLog(req, res, StreakCountModel);
 };

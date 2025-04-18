@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const TasksModel = require("../models/TasksModel");
-const StreakCountModel = require("../models/streakCountModel");
 const checkAndPostMissingField = require("../commonComponents/checkAndPostMissingField");
 const sendCompleteLog = require("../commonComponents/sendCompleteLog");
 const addLog = require("../commonComponents/addLog");
@@ -13,7 +12,7 @@ const days = [
   "Tuesday",
   "Wednesday",
   "Thursday",
-  "Fiday",
+  "Friday",
   "Saturday",
 ];
 
