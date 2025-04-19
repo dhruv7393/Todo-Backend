@@ -63,7 +63,7 @@ const runChronForStreak = async (req, res) => {
   if (!onVaccation && updatedOn !== today) {
     streak.updatedOn = today;
     streak.activeDays += 1;
-    if (dayOfWeek !== "Sunday" || dayOfWeek !== "Saturday") {
+    if (!["Saturday", "Sunday"].includes(dayOfWeek)) {
       streak.weekDays += 1;
     }
     sincerelyDone.forEach((todo) => {
