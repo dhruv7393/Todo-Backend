@@ -126,11 +126,10 @@ const runChron1 = async (req, res) => {
 
   console.log(streak);
 
-  //dhruv
-  /*const resultStreak = await StreakCountModel.findByIdAndUpdate(
+  const resultStreak = await StreakCountModel.findByIdAndUpdate(
     streak._id,
     streak
-  );*/
+  );
 
   const taskDetails = await TasksModel.find();
 
@@ -144,9 +143,7 @@ const runChron1 = async (req, res) => {
       task.checked = typeof checked === "number" ? 0 : [];
       task.repeatOn = typeof repeatOn === "string" ? today : repeatOn;
 
-      //dhruv
-      /*
-      const result = await TasksModel.findByIdAndUpdate(_id, task);*/
+      const result = await TasksModel.findByIdAndUpdate(_id, task);
     }
 
     console.log(task);
