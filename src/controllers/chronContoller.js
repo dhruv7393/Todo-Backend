@@ -27,19 +27,26 @@ const runChronForStreak = async (req, res) => {
 
   const taskDetails = await TasksModel.find();
 
-  taskDetails.forEach(async (task) => {
-    const { _id, repeatOn, checked, reset } = task;
-    if (
-      _id.toString() === "67f58c5d0b3ae40bdb5b3438" &&
-      repeatOn.includes(dayOfWeek)
-    ) {
-      sincerelyDone.push(...checked);
-    }
+  const listOfTasksToBeCounted = [
+    "Goon",
+    "6 Pack Abs",
+    "FIRE",
+    "Hu To Ayvo",
+    "Introspection",
+    "Project Happy",
+    "Read To Grow",
+    "Techie",
+    "Thank You",
+    "Dhun",
+  ];
 
-    // weekday task
+  taskDetails.forEach(async (task) => {
+    const { _id, label, repeatOn, checked, reset } = task;
+
     if (
-      _id.toString() === "67f58d060b3ae40bdb5b343e" &&
-      repeatOn.includes(dayOfWeek)
+      listOfTasksToBeCounted.includes(label) &&
+      repeatOn.includes(dayOfWeek) &&
+      checked == 1
     ) {
       sincerelyDone.push(...checked);
     }
@@ -66,6 +73,7 @@ const runChronForStreak = async (req, res) => {
     if (!["Saturday", "Sunday"].includes(dayOfWeek)) {
       streak.weekDays += 1;
     }
+
     sincerelyDone.forEach((todo) => {
       streak.sincerity[todo] += 1;
     });
