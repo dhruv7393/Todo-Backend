@@ -48,7 +48,7 @@ const runChronForStreak = async (req, res) => {
       repeatOn.includes(dayOfWeek) &&
       checked == 1
     ) {
-      sincerelyDone.push(...checked);
+      sincerelyDone.push(label);
     }
 
     const checkForRepeatOn =
