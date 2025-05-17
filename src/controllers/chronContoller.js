@@ -41,7 +41,16 @@ const runChronForStreak = async (req, res) => {
   ];
 
   taskDetails.forEach(async (task) => {
-    const { _id, label, repeatOn, checked, reset } = task;
+    const {
+      _id,
+      label,
+      repeatOn,
+      checked,
+      reset,
+      type: tasktype,
+      noDelete,
+      items,
+    } = task;
 
     if (
       listOfTasksToBeCounted.includes(label) &&
@@ -60,6 +69,18 @@ const runChronForStreak = async (req, res) => {
       task.repeatOn = typeof repeatOn === "string" ? today : repeatOn;
 
       const result = await TasksModel.findByIdAndUpdate(_id, task);
+    }
+
+    if (!noDelete && tasktype === "steps" && checked === items.length - 1) {
+      const result = await TasksModel.findByIdAndDelete(_id);
+    }
+
+    if (
+      !noDelete &&
+      tasktype === "checked" &&
+      checked.length === items.length
+    ) {
+      const result = await TasksModel.findByIdAndDelete(_id);
     }
   });
 
