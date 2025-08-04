@@ -6,12 +6,11 @@ const sendCompleteLog = async (req, res, model) => {
     const logs = await model.find();
     res.status(200).json(logs);
   } catch (e) {
-    res
-      .status(400)
-      .json(
-        "Requested data is not available. Please find detailed error - ",
-        e
-      );
+    res.status(500).json({
+      error: "Requested data is not available",
+      message: e.message || "Internal server error",
+      details: e,
+    });
   }
 };
 

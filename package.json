@@ -7,7 +7,8 @@
     "start": "ts-node src/index.ts",
     "build": "tsc",
     "serve": "node dist/index.js",
-    "postbuild": "chmod +x bin/postbuild.sh && ./bin/postbuild.sh"
+    "postbuild": "chmod +x bin/postbuild.sh && ./bin/postbuild.sh",
+    "dev": "nodemon --watch src --ext ts,js,json --exec ts-node src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
     "@types/express": "^4.17.21",
     "@types/node": "^20.11.21",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "nodemon": "^3.1.0"
   }
 }
