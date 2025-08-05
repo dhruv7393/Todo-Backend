@@ -10,7 +10,7 @@ const VaccationSchems = new mongoose.Schema({
     type: Boolean,
     required: [true, "Please specify if the task is done"],
   },
-  carryyOutOn: {
+  carryOutOn: {
     type: String,
     required: [
       true,
@@ -18,7 +18,7 @@ const VaccationSchems = new mongoose.Schema({
     ],
   },
   dateOfCarryOut: {
-    type: Date,
+    type: String,
     required: [true, "Please add when task needs to be carried out"],
   },
   canBeReseted: {
