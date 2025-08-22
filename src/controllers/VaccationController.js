@@ -1,11 +1,11 @@
 const VaccationModel = require("../models/VaccationModel");
-const sortByKey = require("dhruvtodo");
+const { sortToDos } = require("dhruvtodo");
 
 const getAllVaccationTasks = async (req, res) => {
   try {
     const logs = await VaccationModel.find();
     const logsCopy = JSON.parse(JSON.stringify(logs));
-    res.status(200).json(sortByKey(logsCopy, "priority", "desc"));
+    res.status(200).json(sortToDos(logsCopy));
   } catch (e) {
     res.status(500).json({
       error: "Requested data is not available",
