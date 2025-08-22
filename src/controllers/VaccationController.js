@@ -1,20 +1,206 @@
+const mongoose = require("mongoose");
 const VaccationModel = require("../models/VaccationModel");
-const { sortToDos } = require("dhruvtodo");
+const {
+  sortToDos,
+  addCategory,
+  getModifiedCategories,
+  chron,
+} = require("dhruvtodo");
+
+const deleteCategoryByIDs = async (ids) => {
+  try {
+    const result = await VaccationModel.deleteMany({ _id: { $in: ids } });
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getEntireTaskData = async () => {
+  try {
+    const data = await VaccationModel.find();
+    return sortToDos(data);
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getCategoryByID = async (id) => {
+  try {
+    const data = await VaccationModel.findById(id);
+    return sortToDos(data);
+  } catch (error) {
+    throw error;
+  }
+};
+
+const updateMultipleCategories = async (categories) => {
+  try {
+    const updatePromises = categories.map((category) => {
+      const { _id, ...updateData } = category;
+      return VaccationModel.findByIdAndUpdate(_id, updateData, { new: true });
+    });
+
+    const results = await Promise.all(updatePromises);
+    return results;
+  } catch (error) {
+    throw error;
+  }
+};
 
 const getAllVaccationTasks = async (req, res) => {
   try {
-    const logs = await VaccationModel.find();
-    const logsCopy = JSON.parse(JSON.stringify(logs));
-    res.status(200).json(sortToDos(logsCopy));
-  } catch (e) {
+    const data = await getEntireTaskData();
+    res.status(200).json({
+      success: true,
+      data: data,
+    });
+  } catch (error) {
     res.status(500).json({
-      error: "Requested data is not available",
-      message: e.message || "Internal server error",
-      details: e,
+      success: false,
+      error: error.message || "Internal server error",
+    });
+  }
+};
+
+const getVaccationByID = async (req, res) => {
+  try {
+    const data = await getCategoryByID(req.params.id);
+    res.status(200).json({
+      success: true,
+      data: data,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message || "Internal server error",
+    });
+  }
+};
+
+const addVaccationCategory = async (req, res) => {
+  try {
+    const existingData = await getEntireTaskData();
+
+    const categoryToBeCreated = {
+      _id: new mongoose.Types.ObjectId(),
+      name: req.body.name || "Untitled Category",
+      color: req.body.name || "Untitled Category",
+      done: 0,
+      notDone: 0,
+      total: 0,
+      isMarkedDone: false,
+      priority: existingData.length + 1,
+      tasks: [],
+    };
+
+    const dataFromAddCategory = addCategory(
+      existingData,
+      categoryToBeCreated._id,
+      categoryToBeCreated.name,
+      categoryToBeCreated.color
+    );
+
+    const categoriesToBeUpdated = dataFromAddCategory.filter(
+      (category) => category._id !== categoryToBeCreated._id.toString()
+    );
+
+    const newCategory = dataFromAddCategory.filter(
+      (category) => category._id === categoryToBeCreated._id.toString()
+    );
+
+    const result = await VaccationModel.create(newCategory[0]);
+
+    categoriesToBeUpdated.length &&
+      updateMultipleCategories(categoriesToBeUpdated);
+
+    res.status(201).json({
+      success: true,
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message || "Internal server error",
+    });
+  }
+};
+
+const updateVaccations = async (req, res) => {
+  try {
+    const updatedData = await updateMultipleCategories(req.body);
+    res.status(200).json({
+      success: true,
+      data: updatedData,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message || "Internal server error",
+    });
+  }
+};
+
+const deleteVaccation = async (req, res) => {
+  try {
+    const result = await deleteCategoryByIDs([req.params.id]);
+    res.status(200).json({
+      success: true,
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message || "Internal server error",
+    });
+  }
+};
+
+const cron = async (req, res) => {
+  try {
+    // Get existing data and make a deep copy
+    const existingData = await getEntireTaskData();
+    const dataCopy = JSON.parse(JSON.stringify(existingData));
+
+    // Run chron function on the data
+    const result = chron(dataCopy);
+
+    // Handle delete operations
+    if (
+      result.delete &&
+      Array.isArray(result.delete) &&
+      result.delete.length > 0
+    ) {
+      await deleteCategoryByIDs(result.delete);
+    }
+
+    // Handle update operations
+    if (
+      result.update &&
+      Array.isArray(result.update) &&
+      result.update.length > 0
+    ) {
+      await updateMultipleCategories(result.update);
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Cron ran successfully",
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message || "Internal server error",
     });
   }
 };
 
 module.exports = {
   getAllVaccationTasks,
+  getVaccationByID,
+  addVaccationCategory,
+  updateVaccations,
+  deleteVaccation,
+  cron,
 };

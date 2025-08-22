@@ -2,34 +2,60 @@ const mongoose = require("mongoose");
 
 const VaccationSchems = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
-  taskName: {
+  name: {
     type: String,
     required: [true, "Please add name for task"],
   },
-  isDone: {
-    type: Boolean,
-    required: [true, "Please specify if the task is done"],
-  },
-  carryOutOn: {
+  color: {
     type: String,
-    required: [
-      true,
-      "Please add when task needs to be carried out - date / day of week /  after certain days / specific date of every month",
-    ],
+    required: [true, "Please add color for task"],
   },
-  dateOfCarryOut: {
-    type: String,
-    required: [true, "Please add when task needs to be carried out"],
+  priority: {
+    type: Number,
+    required: [true, "Please specify priority of task"],
   },
-  canBeReseted: {
+  done: {
+    type: Number,
+    required: [true, "Please specify the number of tasks done"],
+  },
+  notDone: {
+    type: Number,
+    required: [true, "Please specify the number of tasks not done"],
+  },
+  total: {
+    type: Number,
+    required: [true, "Please specify the total number of tasks"],
+  },
+  isMarkedDone: {
     type: Boolean,
-    required: [true, "Please specify if the task can be reset"],
+    required: [true, "Please specify if the task is marked done"],
   },
-  listOfSubTasks: [
+  tasks: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Vaccation",
-      required: [false, "Please add subtasks for the task"],
+      name: {
+        type: String,
+        required: [true, "Please add name for task"],
+      },
+      notes: {
+        type: String,
+        required: [true, "Please add notes for task"],
+      },
+      done: {
+        type: Boolean,
+        required: [true, "Please specify if task is done"],
+      },
+      canBeRepeated: {
+        type: Boolean,
+        required: [true, "Please specify if task can be repeated"],
+      },
+      priority: {
+        type: Number,
+        required: [true, "Please specify priority of task"],
+      },
+      when: {
+        type: String,
+        required: false,
+      },
     },
   ],
 });
