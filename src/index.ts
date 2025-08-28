@@ -21,6 +21,7 @@ app.get("/", (req: express.Request, res: express.Response) => {
 });
 
 app.use("/api/vaccation", require("./routes/VaccationRoute.js"));
+app.use("/api/cron", require("./routes/CronRoute.js"));
 
 app.listen(port, () => {
   console.log("Server has been initaited at:", port);

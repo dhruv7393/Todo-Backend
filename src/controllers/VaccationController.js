@@ -85,7 +85,7 @@ const addVaccationCategory = async (req, res) => {
     const categoryToBeCreated = {
       _id: new mongoose.Types.ObjectId(),
       name: req.body.name || "Untitled Category",
-      color: req.body.name || "Untitled Category",
+      color: req.body.color || "Untitled Category",
       done: 0,
       notDone: 0,
       total: 0,
@@ -142,8 +142,9 @@ const updateVaccations = async (req, res) => {
 };
 
 const deleteVaccation = async (req, res) => {
+  console.log("Delete request received with ID:", req.body.ids);
   try {
-    const result = await deleteCategoryByIDs([req.params.id]);
+    const result = await deleteCategoryByIDs(req.body.ids);
     res.status(200).json({
       success: true,
       data: result,

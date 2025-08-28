@@ -5,7 +5,7 @@ const {
   addVaccationCategory,
   updateVaccations,
   deleteVaccation,
-  chron,
+  cron,
 } = require("../controllers/VaccationController");
 const router = express.Router();
 
@@ -25,12 +25,12 @@ router.patch("/", (req, res) => {
   updateVaccations(req, res);
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/", (req, res) => {
   deleteVaccation(req, res);
 });
 
-router.get("/chron", (req, res) => {
-  chron(req, res);
+router.get("/cron/", (req, res) => {
+  cron(req, res);
 });
 
 module.exports = router;
