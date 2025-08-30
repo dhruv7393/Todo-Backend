@@ -10,6 +10,10 @@ const VaccationSchems = new mongoose.Schema({
     type: String,
     required: [true, "Please add color for task"],
   },
+  border: {
+    type: String,
+    required: [true, "Please add color for border of task"],
+  },
   priority: {
     type: Number,
     required: [true, "Please specify priority of task"],

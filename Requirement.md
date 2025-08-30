@@ -2,6 +2,7 @@
 
 name: string
 color: string
+border: string
 priority: number
 done: number
 notDone: number

@@ -86,6 +86,7 @@ const addVaccationCategory = async (req, res) => {
       _id: new mongoose.Types.ObjectId(),
       name: req.body.name || "Untitled Category",
       color: req.body.color || "Untitled Category",
+      border: req.body.border || "#ffffff",
       done: 0,
       notDone: 0,
       total: 0,
@@ -98,7 +99,8 @@ const addVaccationCategory = async (req, res) => {
       existingData,
       categoryToBeCreated._id,
       categoryToBeCreated.name,
-      categoryToBeCreated.color
+      categoryToBeCreated.color,
+      categoryToBeCreated.border
     );
 
     const categoriesToBeUpdated = dataFromAddCategory.filter(
@@ -162,27 +164,18 @@ const cron = async (req, res) => {
     // Get existing data and make a deep copy
     const existingData = await getEntireTaskData();
     const dataCopy = JSON.parse(JSON.stringify(existingData));
-
+    let existingDataCategoryIDs = existingData.map((cat) => cat._id);
     // Run chron function on the data
     const result = chron(dataCopy);
+    let resultCategoryIDs = result.map((cat) => cat._id);
 
-    // Handle delete operations
-    if (
-      result.delete &&
-      Array.isArray(result.delete) &&
-      result.delete.length > 0
-    ) {
-      await deleteCategoryByIDs(result.delete);
-    }
+    let categoriesToBeDeleted = existingDataCategoryIDs.filter(
+      (id) => !resultCategoryIDs.includes(id)
+    );
 
-    // Handle update operations
-    if (
-      result.update &&
-      Array.isArray(result.update) &&
-      result.update.length > 0
-    ) {
-      await updateMultipleCategories(result.update);
-    }
+    await deleteCategoryByIDs(categoriesToBeDeleted);
+
+    updateMultipleCategories(result);
 
     res.status(200).json({
       success: true,
