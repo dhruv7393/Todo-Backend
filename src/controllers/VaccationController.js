@@ -175,7 +175,7 @@ const cron = async (req, res) => {
 
     await deleteCategoryByIDs(categoriesToBeDeleted);
 
-    updateMultipleCategories(result);
+    await updateMultipleCategories(result);
 
     res.status(200).json({
       success: true,
