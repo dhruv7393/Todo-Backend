@@ -37,8 +37,8 @@ const getCategoryByID = async (id) => {
 const updateMultipleCategories = async (categories) => {
   try {
     const updatePromises = categories.map((category) => {
-      const { _id, ...updateData } = category;
-      return VaccationModel.findByIdAndUpdate(_id, updateData, { new: true });
+      const { _id } = category;
+      return VaccationModel.findByIdAndUpdate(_id, category);
     });
 
     const results = await Promise.all(updatePromises);
